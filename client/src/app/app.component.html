@@ -1,0 +1,32 @@
+<div class="col s12 grey lighten-4">
+  <ul id="task-card" class="collection with-header">
+    <li class="collection-header blue lighten-4">
+      <h4 class="task-card-title">Mis tareas</h4>
+      
+      <form #taskForm="ngForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label>Tarea</label>
+          <input type="text" #tarea="ngModel" name="nuevaTarea" [(ngModel)]="nuevaTarea" class="form-control" required>
+        </div>
+        
+        <button *ngIf="validar()" class="btn waves-effect waves-light" type="submit" name="action">Añadir
+          <i class="material-icons right">send</i>
+        </button>
+        <div *ngIf="!validar()" class="btn waves-effect waves-light red lighten-2">Añadir
+          <i class="material-icons right">send</i>
+        </div>
+        <br/>
+      </form>      
+      <button class="waves-effect waves-light btn" (click)="dropCompleted()">Elimiar completos</button>
+    </li>
+    
+    <li class="collection-item dismissable" *ngFor="let task of tasks">
+      <label>        
+        <input *ngIf="task.state == 1" type="checkbox" checked="checked" (click)="changeState(task.id)"/>
+        <input *ngIf="task.state == 0" type="checkbox" (click)="changeState(task.id)">
+        <span>{{task.taskname}}</span>
+        <a href="#!" class="secondary-content"><i class="material-icons" (click)="dropTask(task.id)">delete</i></a>
+      </label>
+    </li>
+  </ul>
+</div>
